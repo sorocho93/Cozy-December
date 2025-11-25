@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Operation Cozy December 🎄</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+
+    <!-- HERO CARD (CARD 1) -->
+    <header class="hero">
+      <p class="hero-tag"> Operation</p>
+      <h1>Cozy December</h1>
+      <p class="hero-sub">
+        A tiny advent calendar for your real life.</p>
+25 days. 25 festive prompts. 💌
+      </p>
+    </header>
+
+    <!-- SIGNUP CARD (CARD 2) -->
+    <section class="card">
+      <h2>Join my December Mailing List ✨</h2>
+      <p class="muted">
+        Leave your email and I’ll send you a tiny seasonal ritual every morning, every day of December.
+      </p>
+
+      <!-- EMAIL FORM (handled by JS + Formspree) -->
+      <form class="signup-form" id="signup-form" method="POST">
+        <input
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          required
+        />
+        <button type="submit">Sign me up!</button>
+      </form>
+
+      <p class="tiny" id="form-status">
+        No spam, just one email a day.
+      </p>
+    </section>
+
+    <!-- CALENDAR CARD (CARD 3) -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <h2>The Christmas Prompt Calendar 📅</h2>
+          <p class="muted">
+            A little grid of moments to look forward to all month.
+          </p>
+        </div>
+      </div>
+
+      <div class="calendar-grid">
+  <a class="day" href="day1.html">1</a>
+  <a class="day" href="day2.html">2</a>
+  <a class="day" href="day3.html">3</a>
+  <a class="day" href="day4.html">4</a>
+  <a class="day" href="day5.html">5</a>
+
+  <a class="day" href="day6.html">6</a>
+  <a class="day" href="day7.html">7</a>
+  <a class="day" href="day8.html">8</a>
+  <a class="day" href="day9.html">9</a>
+  <a class="day" href="day10.html">10</a>
+
+  <a class="day" href="day11.html">11</a>
+  <a class="day" href="day12.html">12</a>
+  <a class="day" href="day13.html">13</a>
+  <a class="day" href="day14.html">14</a>
+  <a class="day" href="day15.html">15</a>
+
+  <a class="day" href="day16.html">16</a>
+  <a class="day" href="day17.html">17</a>
+  <a class="day" href="day18.html">18</a>
+  <a class="day" href="day19.html">19</a>
+  <a class="day" href="day20.html">20</a>
+
+  <a class="day" href="day21.html">21</a>
+  <a class="day" href="day22.html">22</a>
+  <a class="day" href="day23.html">23</a>
+  <a class="day" href="day24.html">24</a>
+  <a class="day" href="day25.html">25</a>
+</div>
+
+      <p class="tiny center">
+        For now it’s just a pretty grid. When you’re ready, you can turn each
+        date into its own page with that day’s little assignment.
+      </p>
+    </section>
+
+    <footer class="footer">
+      Built for anyone who wants December to feel softer, not busier. 🎄
+    </footer>
+  </div>
+
+  <!-- THANK YOU POPUP -->
+  <div class="popup-overlay" id="thankyou-overlay">
+    <div class="popup">
+      <button class="popup-close" id="popup-close" aria-label="Close">
+        ✖
+      </button>
+      <h3>You're on the cozy list ✨</h3>
+      <p>
+        See you in your inbox! 💌
+      </p>
+      <p class="tiny center">
+        P.S. If you don’t spot anything, peek in Promotions or Spam – sometimes the elves misfile things.
+      </p>
+    </div>
+  </div>
+
+  <!-- FORM + POPUP SCRIPT -->
+  <script>
+    // 🔗 Replace this with your real Formspree endpoint
+    const FORM_ENDPOINT = "https://formspree.io/f/meowvoaj";
+
+    const form = document.getElementById("signup-form");
+    const statusEl = document.getElementById("form-status");
+    const overlay = document.getElementById("thankyou-overlay");
+    const closeBtn = document.getElementById("popup-close");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        });
+
+        if (response.ok) {
+  form.reset();
+  statusEl.textContent = "You’re in! Keep an eye on your inbox. 🎄";
+  statusEl.classList.add("success");
+  overlay.classList.add("show");
+}
+ else {
+          statusEl.textContent = "Hmm, something went wrong. Try again in a bit?";
+        }
+      } catch (err) {
+        statusEl.textContent = "Couldn’t reach the server. Please try once more.";
+      }
+    });
+
+    // Close popup
+    closeBtn.addEventListener("click", () => {
+      overlay.classList.remove("show");
+    });
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+</html>
